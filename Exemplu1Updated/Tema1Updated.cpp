@@ -23,7 +23,7 @@ int main()
 		cin.get();
 		cin.get(s, 255, '\n');
 		for (int j = 0; j < n; j++)
-			map[i][j] = s[j];
+			map[i].get()[j] = s[j];
 	}
 
 	//Construct initial map

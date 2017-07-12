@@ -12,14 +12,14 @@ GameMap::GameMap(Map<char> a, int m, int n)
 
 	for (int i = 0; i < m; i++)
 		for (int j = 0; j < n; j++)
-			if (a[i][j] == 'X')
-				InMap[i][j] = -1;
-			else if (a[i][j] == 'R')
-				InMap[i][j] = 2;
-			else if (a[i][j] == 'J')
-				InMap[i][j] = 3;
+			if (a[i].get()[j] == 'X')
+				InMap[i].get()[j] = -1;
+			else if (a[i].get()[j] == 'R')
+				InMap[i].get()[j] = 2;
+			else if (a[i].get()[j] == 'J')
+				InMap[i].get()[j] = 3;
 			else
-				InMap[i][j] = 0;
+				InMap[i].get()[j] = 0;
 }
 
 GameMap::~GameMap()
@@ -32,7 +32,7 @@ Player GameMap::getPlayerPosition(int nrPlayer)
 	Player result;
 	for (int i = 0; i < mX; i++)
 		for (int j = 0; j < nY; j++)
-			if (InMap[i][j] == nrPlayer)
+			if (InMap[i].get()[j] == nrPlayer)
 			{
 				result.setX(i);
 				result.setY(j);
@@ -48,10 +48,10 @@ Map<int> GameMap::setPlayerMatrix()
 
 	for (int i = 0; i < mX; i++)
 		for (int j = 0; j < nY; j++)
-			if (InMap[i][j] != -1)
-				a[i][j] = 0;
+			if (InMap[i].get()[j] != -1)
+				a[i].get()[j] = 0;
 			else
-				a[i][j] = -1;
+				a[i].get()[j] = -1;
 	return a;
 }
 
@@ -67,7 +67,7 @@ Map<int> GameMap::Lee(Player pl, Map<int> m)
 	int dc[4] = { 0, 1, 0, -1 };
 
 	elem.x = pl.getX(); elem.y = pl.getY(); elem.d = 1;
-	aux[elem.x][elem.y] = 1;
+	aux[elem.x].get()[elem.y] = 1;
 	p = u = 0;
 	V.push_back(elem);
 	while (p <= u)
@@ -78,9 +78,9 @@ Map<int> GameMap::Lee(Player pl, Map<int> m)
 			in = elem.x + dl[i];
 			jn = elem.y + dc[i];
 			dn = 1 + elem.d;
-			if (0 <= in && in < mX && 0 <= jn && jn < nY && aux[in][jn] == 0)
+			if (0 <= in && in < mX && 0 <= jn && jn < nY && aux[in].get()[jn] == 0)
 			{
-				aux[in][jn] = dn;
+				aux[in].get()[jn] = dn;
 				u++;
 				elem2.x = in; elem2.y = jn; elem2.d = dn;
 				V.push_back(elem2);
@@ -110,9 +110,9 @@ Player GameMap::GameResult(Player Romeo, Player Juliet)
 	for (int i = 0; i < mX; i++)
 	{
 		for (int j = 0; j < nY; j++)
-			if (RomeoMap[i][j] == JulietMap[i][j] && RomeoMap[i][j] != -1 && RomeoMap[i][j] != 0 && Min > RomeoMap[i][j])
+			if (RomeoMap[i].get()[j] == JulietMap[i].get()[j] && RomeoMap[i].get()[j] != -1 && RomeoMap[i].get()[j] != 0 && Min > RomeoMap[i].get()[j])
 			{
-				Min = RomeoMap[i][j];
+				Min = RomeoMap[i].get()[j];
 				Result.setX(i); Result.setY(j);
 			}
 	}
