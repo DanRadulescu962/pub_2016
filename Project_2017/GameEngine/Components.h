@@ -5,19 +5,18 @@
 #include <string>
 using namespace std;
 
-struct Position
+class Position
 {
+public:
 	float x, y;
+public:
+	Position();
+	Position(float dx, float dy);
 };
 
 struct Velocity
 {
 	float x, y;
-};
-
-struct Appearance
-{
-	string Name;
 };
 
 struct Health
@@ -29,5 +28,41 @@ struct Control
 {
 	bool Left, Right, Blast;
 };
+
+struct Hero
+{
+	Position pos;
+	Velocity vel;
+	Control ctrl;
+	Health health;
+	string name;
+};
+
+struct Opponent
+{
+	Position pos;
+	Velocity vel;
+	Health health;
+	string name;
+};
+
+struct RandomMovingObject
+{
+	Position pos;
+	Velocity vel;
+	string name;
+};
+
+//SUBSYSTEMS
+
+class PhysicsComponent
+{
+public:
+	PhysicsComponent() {};
+	Position movementAction(Position pos, Velocity vel);
+	Velocity setVelocity(Velocity vel, Control ctrl, Velocity vel_val);
+	bool isCollision(Position pos1, Position pos2, Position margin);
+};
+
 
 #endif
