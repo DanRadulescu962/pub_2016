@@ -60,9 +60,17 @@ class PhysicsComponent
 public:
 	PhysicsComponent() {};
 	Position movementAction(Position pos, Velocity vel);
-	Velocity setVelocity(Velocity vel, Control ctrl, Velocity vel_val);
 	bool isCollision(Position pos1, Position pos2, Position margin);
+	bool OutOfBounds(Position pos, int window_height, int window_width);
 };
 
+
+class InputComponent
+{
+public:
+	InputComponent() {};
+	Velocity setVelocity(Velocity vel, Control ctrl, Velocity vel_val);
+	Control getCommand();
+};
 
 #endif

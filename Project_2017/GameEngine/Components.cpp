@@ -19,7 +19,7 @@ Position PhysicsComponent::movementAction(Position pos, Velocity vel)
 	return pos;
 }
 
-Velocity PhysicsComponent::setVelocity(Velocity vel, Control ctrl, Velocity vel_val)
+Velocity InputComponent::setVelocity(Velocity vel, Control ctrl, Velocity vel_val)
 {
 	if (ctrl.Left == true && ctrl.Right == false)
 	{
@@ -42,3 +42,13 @@ bool PhysicsComponent::isCollision(Position pos1, Position pos2, Position margin
 		return true;
 	return false;
 }
+
+bool PhysicsComponent::OutOfBounds(Position pos, int window_height, int window_width)
+{
+	if (pos.x <= 0 || pos.x > window_width)
+		return true;
+	if (pos.y <= 0 || pos.y > window_height)
+		return true;
+	return false;
+}
+
