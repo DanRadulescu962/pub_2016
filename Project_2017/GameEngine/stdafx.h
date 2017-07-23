@@ -10,6 +10,8 @@
 #include <stdio.h>
 #include <tchar.h>
 #include "Entities.h"
+#include <D:/3D_UPB/Introd_EA/libs/include/SDL2/SDL.h>
+#undef main
 
 
 

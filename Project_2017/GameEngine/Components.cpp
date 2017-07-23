@@ -52,3 +52,54 @@ bool PhysicsComponent::OutOfBounds(Position pos, int window_height, int window_w
 	return false;
 }
 
+Control InputComponent::getCommand()
+{
+	Control ctrl;
+	SDL_Event evt;
+	while (SDL_PollEvent(&evt))
+	{
+
+		switch (evt.type)
+
+		{
+
+		case SDL_KEYDOWN:
+
+		{
+
+			if (evt.key.keysym.sym == SDLK_LEFT)
+
+				ctrl.Left = true;
+
+			if (evt.key.keysym.sym == SDLK_RIGHT)
+
+				ctrl.Right = true;
+
+			if (evt.key.keysym.sym == SDLK_SPACE)
+
+				ctrl.Blast = true;
+
+			break;
+
+		}
+
+		case SDL_KEYUP:
+
+		{
+			if (evt.key.keysym.sym == SDLK_LEFT)
+				ctrl.Left = false;
+
+			if (evt.key.keysym.sym == SDLK_RIGHT)
+				ctrl.Right = false;
+
+			if (evt.key.keysym.sym == SDLK_SPACE)
+				ctrl.Blast = false;
+
+			break;
+
+		}
+
+		}
+	}
+	return ctrl;
+}
