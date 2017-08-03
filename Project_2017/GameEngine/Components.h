@@ -3,15 +3,12 @@
 #define COMP
 #include <iostream>
 #include <string>
+#include <SDL.h>
 using namespace std;
 
-class Position
+struct Position
 {
-public:
 	float x, y;
-public:
-	Position();
-	Position(float dx, float dy);
 };
 
 struct Velocity
@@ -21,12 +18,12 @@ struct Velocity
 
 struct Health
 {
-	int value, decrease_rate;
+	float value, decrease_rate;
 };
 
 struct Control
 {
-	bool Left, Right, Blast;
+	bool Left, Right, Blast, isRunning;
 };
 
 struct Hero
@@ -59,7 +56,7 @@ class PhysicsComponent
 {
 public:
 	PhysicsComponent() {};
-	Position movementAction(Position pos, Velocity vel);
+	Position movementAction(Position pos, Velocity vel, float time);
 	bool isCollision(Position pos1, Position pos2, Position margin);
 	bool OutOfBounds(Position pos, int window_height, int window_width);
 };
@@ -68,9 +65,32 @@ public:
 class InputComponent
 {
 public:
-	InputComponent() {};
-	Velocity setVelocity(Velocity vel, Control ctrl, Velocity vel_val);
+	Control ctrl;
+public:
+	InputComponent() 
+	{
+		ctrl.Left = false;
+		ctrl.Right = false;
+		ctrl.Blast = false;
+		ctrl.isRunning = true;
+	};
+	Velocity setVelocity(Velocity vel, Velocity vel_val);
 	Control getCommand();
 };
 
+class GraphicsComponent
+{
+public:
+	unsigned int Width, Height;
+	SDL_Window* m_window;
+	SDL_GLContext m_context;
+public:
+	GraphicsComponent(unsigned int, unsigned int);
+	void Init();
+	void Destroy();
+	void drawRectangle(Position V1, Position V2, Position V3, Position V4);
+	void drawPoint(Position V);
+	void drawLine(Position V1, Position V2);
+	void drawCircle(Position center, float radius);
+};
 #endif
