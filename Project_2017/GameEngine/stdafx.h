@@ -10,8 +10,8 @@
 #include <stdio.h>
 #include <tchar.h>
 #include "Entities.h"
-#include <D:/3D_UPB/Introd_EA/libs/include/SDL2/SDL.h>
-#undef main
+#include <D:/3D_UPB/Introd_EA/glew-2.0.0-win32/glew-2.0.0/include/GL/glew.h>
+#include <time.h>
 
 
 
